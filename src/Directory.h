@@ -1,5 +1,3 @@
-#include<iostream>
-#include<string>
 #include<vector>
 #include"File.h"
 using namespace std;
@@ -12,7 +10,12 @@ public:
 
     }
     ~Directory(){
-
+        for(auto it: directories){
+            delete it;
+        }
+        for(auto it : files){
+            delete it;
+        }
     }
     void setDirectoryName(string);
     string getDirectoryName();
@@ -20,6 +23,7 @@ public:
     vector<File*> getFiles();
     void addDirectory(Directory*);
     void addFile(File*);
+    void deleteDirectory(Directory*);
 };
 
 void Directory::setDirectoryName(string directoryName){
@@ -32,4 +36,21 @@ string Directory::getDirectoryName(){
 
 vector<Directory*> Directory::getDirectories(){
     return directories;
+}
+
+void Directory::addDirectory(Directory* newDirectory){
+    directories.push_back(newDirectory);
+}
+
+void Directory::deleteDirectory(Directory* directoryToBeDel){
+    int count = 0;
+    vector<Directory*>::iterator it1;
+    for(auto it : directories){
+        if(it->getDirectoryName() == directoryToBeDel->getDirectoryName()){
+            break;
+        }
+        count++;
+    }
+    it1 = directories.begin()+count;
+    directories.erase(it1);
 }

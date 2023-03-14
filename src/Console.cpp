@@ -1,9 +1,7 @@
-#include<iostream>
-#include<string>
-#include<vector>
 #include"FileManager.h"
 using namespace std;
-
+// initialize the FileManager class
+FileManager* fileManager = new FileManager();
 class Console{
 public:
     Console(){
@@ -24,6 +22,7 @@ void Console::showCommands(){
     cout<<"|2|Delete File                        |"<<endl;
     cout<<"|3|Create Directory                   |"<<endl;
     cout<<"|4|Delete Directory                   |"<<endl;
+    cout<<"|5|Show Tree                          |"<<endl;
     cout<<"---------------------------------------"<<endl;
 
 }
@@ -31,8 +30,6 @@ void Console::showCommands(){
 // method to get the input of the command from the console
 // calls the callFileOperation method which calls the appropriate method of FileManager class
 void Console::getCommand(){
-    // initialize the FileManager class
-    FileManager* fileManager = new FileManager();
     int command;
     string str1, str2, str3;
     vector<string> vec;
@@ -56,9 +53,18 @@ void Console::getCommand(){
             cin>>str1;
             break;
         case 3:
-            cout<<"Enter directory name: \n/";
+            cout<<"Enter full directory path to create: \n/";
             cin>>str1;
             fileManager->createDirectory(str1);
+            break;
+        case 4:
+            cout<<"Enter directory name to delete: \n/";
+            cin>>str1;
+            fileManager->deleteDirectory(str1);
+            break;
+        case 5:
+            fileManager->showTree();
+            break;
         default:
             cout<<"Enter valid command option"<<endl;
     }
@@ -75,6 +81,8 @@ int main(){
         console->showCommands();
         console->getCommand();
     }
+    delete console;
+    delete fileManager;
 }
 
 
