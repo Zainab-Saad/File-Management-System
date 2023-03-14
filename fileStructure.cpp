@@ -38,29 +38,40 @@ class File
         // dividing the content into blocks
         for(int len = 0; len<content.length(); len=len+SIZE)
         {
+            int temp = len;
             // assuming we start with an empty file each time (for now)
             // creating and filling the head
             if (!head)
             {
-                int temp = len;
                 head = new Block();
                 head->next = NULL;
                 // placing first SIZE (10) characters in the head block
                 for (int i=0; i<SIZE; i++)
-                    head->s[i] = content[len++];
+                    head->s[i] = content[temp++];
             }
             else
             {
                 Block *block = new Block();
                 // placing next SIZE (10) characters in a new block
                 for (int i=0; i<SIZE; i++)
-                    block->s[i] = content[len++];
+                    block->s[i] = content[temp++];
                 // iterating to the end of the list of blocks to append the latest block
                 Block *temp = head;
                 while(temp->next)
                     temp = temp->next;
                 temp->next = block;
             }
+        }
+    }
+
+    void readFromFile()
+    {
+        Block *ptr = head;
+        while(ptr)
+        {
+            for (int i=0; i<SIZE; i++)
+                cout<<ptr->s[i];
+            ptr = ptr->next;
         }
     }  
 };
@@ -72,4 +83,6 @@ int main ()
     //cout<<file.getName()<<endl;
     // Function to write to the file
     file.writeToFile();
+    // Function to read from file
+    file.readFromFile();
 }
