@@ -1,0 +1,91 @@
+/*
+// Method to delete a file by passing in the complete file path
+void FileManager::deleteFile(string path)
+{
+    // vector to create the file at the given path
+    vector<string> strings = parse(path);
+    // now we have names of individual directories of the root / directory
+    Directory* dir = rootDirectory;
+    // to store files in each directory
+    vector<File*> files = rootDirectory->getFiles();
+    vector<Directory*> directories = rootDirectory->getDirectories();
+
+    // for each directory see, if directory already exists, else make a new directory
+    // iterating over all the dirs of the path stored in the vector
+    for(auto newDir:strings)          
+    {
+        bool fileExists = false;
+        bool dirFound = false;
+        bool fileDeleted = false;
+
+        // when the target file has been reached at that path
+        if(newDir == strings[strings.size()-1])
+        {
+            // iterate over each file inside the parent directory
+            for (auto it : files)
+            {
+                // if a subdirectory with the the file name already exists at the required path
+                if(it->getFileName() == newDir)
+                {
+                    fileExists = true;
+                    dir->deleteFile(it);
+                    fileDeleted = true;
+                    return;
+                }
+            }
+        }
+
+        // iterating over all the existing subdirectories in the current directory
+        for(auto directory : directories)
+        {
+            // setting the current directory equal to a existing subdir
+            dir = directory;
+            // if the current subdir is the same as the dir specified in the path, then that dir is found
+            if (directory->getDirectoryName() == newDir)
+            {
+                // to store subdirs of the found dir from the path
+                directories = directory->getDirectories();
+                dirFound = true;                // that directory is found
+                break;
+            }
+        }
+
+        // if a directory from the path wasn't found
+        if (!dirFound)
+       {
+            cout<<"Directory "<<newDir<<" doesn't exist"<<endl;
+            break;
+        }
+
+        // if the file doesnt exist
+        if(!fileExists)
+        {
+            cout<<"File doesn't exists"<<endl;
+            break;    
+        }
+    } 
+}
+*/
+
+/* 
+void FileManager::recurShowTree(Directory* curr, int depth)
+{
+    // to store the subdirectories of the current directory
+    vector<Directory*> directories;
+
+    // if the directory contains subdirectories
+    if (curr->getDirectories().size() != 0)
+    {
+        // store the subdirectories in a vector
+        directories = curr->getDirectories();
+        depth++;
+        // iterating over each subdirectory in the current directory
+        for (auto directory : directories)
+        {
+            cout<<setw(4*depth)<<"-"<<directory->getDirectoryName()<<endl;
+            //cout<<"   ";
+            recurShowTree(directory, depth);
+        }
+    }
+}
+*/
